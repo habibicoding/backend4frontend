@@ -1,11 +1,11 @@
 package com.example.backend4frontend.service
 
 import com.example.backend4frontend.data.TaskStatus
-import com.example.backend4frontend.data.dto.MAX_DESCRIPTION_LENGTH
-import com.example.backend4frontend.data.dto.MIN_DESCRIPTION_LENGTH
 import com.example.backend4frontend.data.dto.TaskCreateDto
 import com.example.backend4frontend.data.dto.TaskFetchDto
 import com.example.backend4frontend.data.dto.TaskUpdateDto
+import com.example.backend4frontend.data.entity.MAX_DESCRIPTION_LENGTH
+import com.example.backend4frontend.data.entity.MIN_DESCRIPTION_LENGTH
 import com.example.backend4frontend.data.entity.Task
 import com.example.backend4frontend.error.handling.BadRequestException
 import com.example.backend4frontend.error.handling.TaskNotFoundException

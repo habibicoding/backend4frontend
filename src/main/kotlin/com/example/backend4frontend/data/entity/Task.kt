@@ -1,8 +1,6 @@
 package com.example.backend4frontend.data.entity
 
 import com.example.backend4frontend.data.Priority
-import com.example.backend4frontend.data.dto.MAX_DESCRIPTION_LENGTH
-import com.example.backend4frontend.data.dto.MIN_DESCRIPTION_LENGTH
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -46,3 +44,6 @@ class Task {
     @Enumerated(EnumType.STRING)
     var priority: Priority = Priority.LOW
 }
+
+const val MIN_DESCRIPTION_LENGTH: Int = 3
+const val MAX_DESCRIPTION_LENGTH: Int = 255

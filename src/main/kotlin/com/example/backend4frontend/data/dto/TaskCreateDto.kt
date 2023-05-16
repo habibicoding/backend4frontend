@@ -1,11 +1,11 @@
 package com.example.backend4frontend.data.dto
 
 import com.example.backend4frontend.data.Priority
+import com.example.backend4frontend.data.entity.MAX_DESCRIPTION_LENGTH
+import com.example.backend4frontend.data.entity.MIN_DESCRIPTION_LENGTH
 import jakarta.validation.constraints.Size
 
 
-const val MIN_DESCRIPTION_LENGTH: Int = 3
-const val MAX_DESCRIPTION_LENGTH: Int = 255
 
 data class TaskCreateDto(
     @Size(min = MIN_DESCRIPTION_LENGTH, max = MAX_DESCRIPTION_LENGTH)
