@@ -1,4 +1,4 @@
-package com.example.backend4frontend.error
+package com.example.backend4frontend.errorhandler
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime

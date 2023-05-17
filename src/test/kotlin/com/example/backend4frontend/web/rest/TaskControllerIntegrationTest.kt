@@ -2,8 +2,8 @@ package com.example.backend4frontend.web.rest
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.example.backend4frontend.error.handling.BadRequestException
-import com.example.backend4frontend.error.handling.TaskNotFoundException
+import com.example.backend4frontend.errorhandler.BadRequestException
+import com.example.backend4frontend.errorhandler.TaskNotFoundException
 import com.example.backend4frontend.data.TaskStatus
 import com.example.backend4frontend.data.Priority
 import com.example.backend4frontend.data.dto.TaskCreateDto

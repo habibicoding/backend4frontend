@@ -1,7 +1,7 @@
 package com.example.backend4frontend.service
 
-import com.example.backend4frontend.error.handling.BadRequestException
-import com.example.backend4frontend.error.handling.TaskNotFoundException
+import com.example.backend4frontend.errorhandler.BadRequestException
+import com.example.backend4frontend.errorhandler.TaskNotFoundException
 import com.example.backend4frontend.data.TaskStatus
 import com.example.backend4frontend.data.Priority
 import com.example.backend4frontend.data.dto.TaskCreateDto

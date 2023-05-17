@@ -7,8 +7,8 @@ import com.example.backend4frontend.data.dto.TaskUpdateDto
 import com.example.backend4frontend.data.entity.MAX_DESCRIPTION_LENGTH
 import com.example.backend4frontend.data.entity.MIN_DESCRIPTION_LENGTH
 import com.example.backend4frontend.data.entity.Task
-import com.example.backend4frontend.error.handling.BadRequestException
-import com.example.backend4frontend.error.handling.TaskNotFoundException
+import com.example.backend4frontend.errorhandler.BadRequestException
+import com.example.backend4frontend.errorhandler.TaskNotFoundException
 import com.example.backend4frontend.repository.TaskRepository
 import com.example.backend4frontend.util.TaskTimestamp
 import com.example.backend4frontend.util.converter.TaskMapper
