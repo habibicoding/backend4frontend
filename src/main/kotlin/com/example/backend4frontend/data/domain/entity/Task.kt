@@ -1,6 +1,6 @@
-package com.example.backend4frontend.data.entity
+package com.example.backend4frontend.data.domain.entity
 
-import com.example.backend4frontend.data.Priority
+import com.example.backend4frontend.data.domain.Priority
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType

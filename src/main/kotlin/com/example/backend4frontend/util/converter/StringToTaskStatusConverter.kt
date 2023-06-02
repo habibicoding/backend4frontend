@@ -1,6 +1,6 @@
 package com.example.backend4frontend.util.converter
 
-import com.example.backend4frontend.data.TaskStatus
+import com.example.backend4frontend.data.domain.TaskStatus
 import com.example.backend4frontend.errorhandler.BadRequestException
 import org.springframework.core.convert.converter.Converter
 import java.util.Locale

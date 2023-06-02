@@ -4,13 +4,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.example.backend4frontend.errorhandler.BadRequestException
 import com.example.backend4frontend.errorhandler.TaskNotFoundException
-import com.example.backend4frontend.data.TaskStatus
-import com.example.backend4frontend.data.Priority
-import com.example.backend4frontend.data.dto.TaskCreateDto
-import com.example.backend4frontend.data.dto.TaskFetchDto
-import com.example.backend4frontend.data.dto.TaskUpdateDto
-import com.example.backend4frontend.data.entity.MAX_DESCRIPTION_LENGTH
-import com.example.backend4frontend.data.entity.MIN_DESCRIPTION_LENGTH
+import com.example.backend4frontend.data.domain.TaskStatus
+import com.example.backend4frontend.data.domain.Priority
+import com.example.backend4frontend.data.dto.TaskCreateRequest
+import com.example.backend4frontend.data.dto.TaskFetchResponse
+import com.example.backend4frontend.data.dto.TaskUpdateRequest
+import com.example.backend4frontend.data.domain.entity.MAX_DESCRIPTION_LENGTH
+import com.example.backend4frontend.data.domain.entity.MIN_DESCRIPTION_LENGTH
 import com.example.backend4frontend.service.TaskService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -38,7 +38,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
     private val mapper = jacksonObjectMapper()
 
     private val taskId: Long = 33
-    private val dummyDto1 = TaskFetchDto(
+    private val dummyDto1 = TaskFetchResponse(
         33,
         "test1",
         isReminderSet = false,
@@ -55,7 +55,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
     @Test
     fun `given all tasks when fetch happen then check for size`() {
         // GIVEN
-        val taskFetchDto = TaskFetchDto(
+        val taskFetchDto = TaskFetchResponse(
             44,
             "test2",
             isReminderSet = false,
@@ -77,7 +77,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
 
     @Test
     fun `given open tasks when fetch happen then check for size and isTaskOpen is true`() {
-        val fetchDto = TaskFetchDto(
+        val fetchDto = TaskFetchResponse(
             44,
             "test2",
             isReminderSet = false,
@@ -134,7 +134,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
 
     @Test
     fun `given task creation when description is the same to another then check for bad request exception`() {
-        val request = TaskCreateDto(
+        val request = TaskCreateRequest(
             description = "t",
             isReminderSet = false,
             isTaskOpen = false,
@@ -155,13 +155,13 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
 
     @Test
     fun `given create task request when task gets created then check for correct property`() {
-        val request = TaskCreateDto(
+        val request = TaskCreateRequest(
             description = "test for db",
             isReminderSet = false,
             isTaskOpen = false,
             priority = Priority.LOW
         )
-        val fetchDto = TaskFetchDto(
+        val fetchDto = TaskFetchResponse(
             0,
             "test for db",
             isReminderSet = false,
@@ -187,13 +187,13 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val dateTime = LocalDateTime.parse(str, formatter)
 
-        val request = TaskUpdateDto(
+        val request = TaskUpdateRequest(
             "update task",
             isReminderSet = false,
             isTaskOpen = false,
             priority = Priority.LOW
         )
-        val dummyDto = TaskFetchDto(
+        val dummyDto = TaskFetchResponse(
             44,
             request.description ?: "",
             isReminderSet = true,

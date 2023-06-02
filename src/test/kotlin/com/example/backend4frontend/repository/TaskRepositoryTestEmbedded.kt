@@ -1,6 +1,6 @@
 package com.example.backend4frontend.repository
 
-import com.example.backend4frontend.data.entity.Task
+import com.example.backend4frontend.data.domain.entity.Task
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

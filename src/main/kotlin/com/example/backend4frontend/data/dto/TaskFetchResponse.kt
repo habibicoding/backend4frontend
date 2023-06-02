@@ -1,9 +1,9 @@
 package com.example.backend4frontend.data.dto
 
-import com.example.backend4frontend.data.Priority
+import com.example.backend4frontend.data.domain.Priority
 import java.time.LocalDateTime
 
-data class TaskFetchDto(
+data class TaskFetchResponse(
     val id: Long,
     val description: String,
     val isReminderSet: Boolean,

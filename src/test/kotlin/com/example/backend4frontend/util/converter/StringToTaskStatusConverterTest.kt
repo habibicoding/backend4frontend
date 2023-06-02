@@ -1,7 +1,7 @@
 package com.example.backend4frontend.util.converter
 
 import com.example.backend4frontend.errorhandler.BadRequestException
-import com.example.backend4frontend.data.TaskStatus
+import com.example.backend4frontend.data.domain.TaskStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test

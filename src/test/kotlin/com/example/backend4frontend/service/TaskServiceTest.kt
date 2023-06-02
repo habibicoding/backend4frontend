@@ -2,14 +2,14 @@ package com.example.backend4frontend.service
 
 import com.example.backend4frontend.errorhandler.BadRequestException
 import com.example.backend4frontend.errorhandler.TaskNotFoundException
-import com.example.backend4frontend.data.TaskStatus
-import com.example.backend4frontend.data.Priority
-import com.example.backend4frontend.data.dto.TaskCreateDto
-import com.example.backend4frontend.data.dto.TaskFetchDto
-import com.example.backend4frontend.data.dto.TaskUpdateDto
-import com.example.backend4frontend.data.entity.MAX_DESCRIPTION_LENGTH
-import com.example.backend4frontend.data.entity.MIN_DESCRIPTION_LENGTH
-import com.example.backend4frontend.data.entity.Task
+import com.example.backend4frontend.data.domain.TaskStatus
+import com.example.backend4frontend.data.domain.Priority
+import com.example.backend4frontend.data.dto.TaskCreateRequest
+import com.example.backend4frontend.data.dto.TaskFetchResponse
+import com.example.backend4frontend.data.dto.TaskUpdateRequest
+import com.example.backend4frontend.data.domain.entity.MAX_DESCRIPTION_LENGTH
+import com.example.backend4frontend.data.domain.entity.MIN_DESCRIPTION_LENGTH
+import com.example.backend4frontend.data.domain.entity.Task
 import com.example.backend4frontend.repository.TaskRepository
 import com.example.backend4frontend.util.TaskTimestamp
 import com.example.backend4frontend.util.converter.TaskMapper
@@ -47,13 +47,13 @@ internal class TaskServiceTest {
     private lateinit var clock: Clock
 
     private lateinit var task: Task
-    private lateinit var createRequest: TaskCreateDto
+    private lateinit var createRequest: TaskCreateRequest
     private lateinit var objectUnderTest: TaskService
 
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        createRequest = TaskCreateDto(
+        createRequest = TaskCreateRequest(
             "test task",
             isReminderSet = false,
             isTaskOpen = false,
@@ -69,7 +69,7 @@ internal class TaskServiceTest {
         val expectedTasks = listOf(Task(), Task())
 
         every { mockRepository.findAllByOrderByIdAsc() } returns expectedTasks.toMutableSet()
-        val actualList: Set<TaskFetchDto> = objectUnderTest.getTasks(null)
+        val actualList: Set<TaskFetchResponse> = objectUnderTest.getTasks(null)
 
         assertThat(actualList.size).isEqualTo(expectedTasks.size)
     }
@@ -80,7 +80,7 @@ internal class TaskServiceTest {
         val expectedTasks = listOf(task)
 
         every { mockRepository.findAllByIsTaskOpenOrderByIdAsc(true) } returns expectedTasks.toMutableSet()
-        val actualList: Set<TaskFetchDto> = objectUnderTest.getTasks(TaskStatus.OPEN)
+        val actualList: Set<TaskFetchResponse> = objectUnderTest.getTasks(TaskStatus.OPEN)
 
         assertThat(actualList.elementAt(0).isTaskOpen).isEqualTo(task.isTaskOpen)
     }
@@ -91,7 +91,7 @@ internal class TaskServiceTest {
         val expectedTasks = listOf(task)
 
         every { mockRepository.findAllByIsTaskOpenOrderByIdAsc(false) } returns expectedTasks.toMutableSet()
-        val actualList: Set<TaskFetchDto> = objectUnderTest.getTasks(TaskStatus.CLOSED)
+        val actualList: Set<TaskFetchResponse> = objectUnderTest.getTasks(TaskStatus.CLOSED)
 
         assertThat(actualList.elementAt(0).isTaskOpen).isEqualTo(task.isTaskOpen)
     }
@@ -105,7 +105,7 @@ internal class TaskServiceTest {
             ZoneId.systemDefault()
         )
         every { mockRepository.save(any()) } returns task
-        val actualTaskFetchDto: TaskFetchDto = objectUnderTest.createTask(createRequest)
+        val actualTaskFetchDto: TaskFetchResponse = objectUnderTest.createTask(createRequest)
 
         assertThat(actualTaskFetchDto.id).isEqualTo(task.id)
         assertThat(actualTaskFetchDto.description).isEqualTo(createRequest.description)
@@ -126,7 +126,7 @@ internal class TaskServiceTest {
 
     @Test
     fun `when client wants to create a task with description more than 255 characters then check for bad request exception`() {
-        val taskDescriptionTooLong = TaskCreateDto(
+        val taskDescriptionTooLong = TaskCreateRequest(
             description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to,  took a galley of type and scrambled",
             isReminderSet = true,
             isTaskOpen = true,
@@ -140,7 +140,7 @@ internal class TaskServiceTest {
 
     @Test
     fun `when client wants to create a task with description less than 3 characters then check for bad request exception`() {
-        val taskDescriptionTooShort = TaskCreateDto(
+        val taskDescriptionTooShort = TaskCreateRequest(
             description = "ab",
             isReminderSet = false,
             isTaskOpen = false,
@@ -168,7 +168,7 @@ internal class TaskServiceTest {
             ZoneId.systemDefault()
         )
         every { mockRepository.save(capture(taskSlot)) } returns task
-        val actualTaskFetchDto: TaskFetchDto = objectUnderTest.createTask(createRequest)
+        val actualTaskFetchDto: TaskFetchResponse = objectUnderTest.createTask(createRequest)
 
         verify { mockRepository.save(capture(taskSlot)) }
         assertThat(actualTaskFetchDto.id).isEqualTo(taskSlot.captured.id)
@@ -235,7 +235,7 @@ internal class TaskServiceTest {
     fun `when update task is called with task request argument then expect specific description fpr actual task`() {
         task.description = "test task"
         val updateRequest =
-            TaskUpdateDto(
+            TaskUpdateRequest(
                 task.description,
                 isReminderSet = false,
                 isTaskOpen = false,

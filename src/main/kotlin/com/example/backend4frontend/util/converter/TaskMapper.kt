@@ -1,8 +1,8 @@
 package com.example.backend4frontend.util.converter
 
-import com.example.backend4frontend.data.dto.TaskCreateDto
-import com.example.backend4frontend.data.dto.TaskFetchDto
-import com.example.backend4frontend.data.entity.Task
+import com.example.backend4frontend.data.dto.TaskCreateRequest
+import com.example.backend4frontend.data.dto.TaskFetchResponse
+import com.example.backend4frontend.data.domain.entity.Task
 import org.springframework.stereotype.Component
 import java.time.Clock
 import java.time.LocalDateTime
@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 @Component
 class TaskMapper {
 
-    fun toDto(entity: Task) = TaskFetchDto(
+    fun toDto(entity: Task) = TaskFetchResponse(
         entity.id,
         entity.description,
         entity.isReminderSet,
@@ -20,7 +20,7 @@ class TaskMapper {
         entity.priority
     )
 
-    fun toEntity(request: TaskCreateDto, clock: Clock): Task {
+    fun toEntity(request: TaskCreateRequest, clock: Clock): Task {
         val task = Task()
         task.description = request.description
         task.isReminderSet = request.isReminderSet

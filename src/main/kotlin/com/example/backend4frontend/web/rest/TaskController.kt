@@ -1,9 +1,9 @@
 package com.example.backend4frontend.web.rest
 
-import com.example.backend4frontend.data.TaskStatus
-import com.example.backend4frontend.data.dto.TaskCreateDto
-import com.example.backend4frontend.data.dto.TaskFetchDto
-import com.example.backend4frontend.data.dto.TaskUpdateDto
+import com.example.backend4frontend.data.domain.TaskStatus
+import com.example.backend4frontend.data.dto.TaskCreateRequest
+import com.example.backend4frontend.data.dto.TaskFetchResponse
+import com.example.backend4frontend.data.dto.TaskUpdateRequest
 import com.example.backend4frontend.service.TaskService
 import jakarta.validation.Valid
 import org.springframework.http.HttpHeaders
@@ -28,16 +28,16 @@ class TaskController(private val service: TaskService) {
     @GetMapping
     fun getTasks(
         @RequestParam("status", required = false) status: TaskStatus?
-    ): ResponseEntity<Set<TaskFetchDto>> = ResponseEntity.ok(service.getTasks(status))
+    ): ResponseEntity<Set<TaskFetchResponse>> = ResponseEntity.ok(service.getTasks(status))
 
     @GetMapping("{id}")
-    fun getTaskById(@PathVariable id: Long): ResponseEntity<TaskFetchDto> = ResponseEntity.ok(service.getTaskById(id))
+    fun getTaskById(@PathVariable id: Long): ResponseEntity<TaskFetchResponse> = ResponseEntity.ok(service.getTaskById(id))
 
     @PostMapping
     fun createTask(
         @Valid @RequestBody
-        createRequest: TaskCreateDto
-    ): ResponseEntity<TaskFetchDto> {
+        createRequest: TaskCreateRequest
+    ): ResponseEntity<TaskFetchResponse> {
         val task = service.createTask(createRequest)
         return ResponseEntity(task, HttpStatus.CREATED)
     }
@@ -46,8 +46,8 @@ class TaskController(private val service: TaskService) {
     fun updateTask(
         @PathVariable id: Long,
         @Valid @RequestBody
-        updateRequest: TaskUpdateDto
-    ): ResponseEntity<TaskFetchDto> = ResponseEntity.ok(service.updateTask(id, updateRequest))
+        updateRequest: TaskUpdateRequest
+    ): ResponseEntity<TaskFetchResponse> = ResponseEntity.ok(service.updateTask(id, updateRequest))
 
     @DeleteMapping("{id}")
     fun deleteTask(@PathVariable id: Long): ResponseEntity<Unit> {
