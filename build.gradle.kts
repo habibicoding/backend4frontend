@@ -1,10 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.0.6"
+    id("org.springframework.boot") version "3.0.5"
     id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.7.22"
-    kotlin("plugin.spring") version "1.7.22"
+    kotlin("jvm") version "1.7.21"
+    kotlin("plugin.spring") version "1.7.21"
+    kotlin("plugin.jpa") version "1.7.21"
 }
 
 group = "com.example"
@@ -17,15 +18,18 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("com.h2database:h2")
 
-    // for  testing
+    // Swagger / Open API
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+
+    // Unit Testing stuff
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("io.mockk:mockk:1.13.4")
