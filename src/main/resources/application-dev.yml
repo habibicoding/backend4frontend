@@ -18,3 +18,12 @@ server:
     include-message: always
     include-binding-errors: always
     include-stacktrace: on_param
+
+springdoc:
+  api-docs:
+    path: '/api/v3/api-docs'
+  swagger-ui:
+    path: '/api/swagger-ui.html'
+    configUrl: '/api/v3/api-docs/swagger-config'
+    disable-swagger-default-url: true
+    url: '/api/v3/api-docs'
