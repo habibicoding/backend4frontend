@@ -9,6 +9,7 @@ server:
     include-message: always
     include-stacktrace: on_param
   port: ${SERVER_PORT:8080}
+  contextPath: '/backend4frontend'
 
 spring:
   datasource:
